@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct Trips: View {
+    
+    @State var createList: Bool = false
+    @State var trips: [Trip] = []
+    
     var body: some View {
         VStack {
+            CreateTripList(trips: $trips)
             
         }
         .navigationTitle("Vai viajar?")
+        .sheet(isPresented: $createList) { // $ binding<bool>: observable
+            CreateTripList(trips: $trips)
+                .presentationDragIndicator(.visible)
+        }
         
     }
 }
