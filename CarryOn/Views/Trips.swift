@@ -14,12 +14,12 @@ struct Trips: View {
     
     var body: some View {
         VStack {
-            CreateTripList(trips: $trips)
+            CreateTrip(trips: $trips)
             
         }
         .navigationTitle("Vai viajar?")
         .sheet(isPresented: $createList) { // $ binding<bool>: observable
-            CreateTripList(trips: $trips)
+            CreateTrip(trips: $trips)
                 .presentationDragIndicator(.visible)
         }
         

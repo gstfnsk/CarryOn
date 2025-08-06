@@ -1,5 +1,5 @@
 //
-//  CreateTripList.swift
+//  CreateTrip.swift
 //  CarryOn
 //
 //  Created by Giulia Stefainski on 05/08/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CreateTripList: View {
+struct CreateTrip: View {
     
     @Environment(\.dismiss) var dismiss
     
@@ -55,5 +55,5 @@ struct CreateTripList: View {
 }
 
 //#Preview {
-//    CreateTripList()
+//    CreateTrip()
 //}
