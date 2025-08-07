@@ -10,14 +10,15 @@ import SwiftData
 
 @Model
 final class Trip: Identifiable {
-        var id: UUID = UUID()
         var name: String
+        var items: [Item]? = []
         var details: String?
         var startDate: Date?
         var endDate: Date?
     
-    init(name: String, details: String? = nil, startDate: Date? = nil, endDate: Date? = nil) {
+    init(name: String, items: [Item] = [], details: String? = nil, startDate: Date? = nil, endDate: Date? = nil) {
         self.name = name
+        self.items = items
         self.details = details
         self.startDate = startDate
         self.endDate = endDate

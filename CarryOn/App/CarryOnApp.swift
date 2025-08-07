@@ -14,6 +14,6 @@ struct CarryOnApp: App {
         WindowGroup {
             TabBar()
         }
-        .modelContainer(for: [Item.self, Trip.self])
+        .modelContainer(for: Trip.self)
     }
 }
