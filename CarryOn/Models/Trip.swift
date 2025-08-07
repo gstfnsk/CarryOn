@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Trip: Identifiable {
+final class Trip {
         var name: String
         var items: [Item]? = []
         var details: String?

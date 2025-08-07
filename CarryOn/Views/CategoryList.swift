@@ -9,21 +9,21 @@ import SwiftUI
 
 var category : ItemCategory = .electronics
 
-struct CategoryList: View {
-    var body: some View {
-        VStack {
-            NavigationStack {
-                ScrollView {
-                    List(PredefinedItems.electronics) {item in
-                        Text(item.name)
-                    }
-                }
-            }
-        }
-        .navigationTitle(category.rawValue)
-    }
-}
+//struct CategoryList: View {
+//    var body: some View {
+//        VStack {
+//            NavigationStack {
+//                ScrollView {
+//                    List(PredefinedItems.electronics) {item in
+//                        Text(item.name)
+//                    }
+//                }
+//            }
+//        }
+//        .navigationTitle(category.rawValue)
+//    }
+//}
 
-#Preview {
-    CategoryList()
-}
+//#Preview {
+//    CategoryList()
+//}
