@@ -10,11 +10,12 @@ import SwiftUI
 struct CreateTrip: View {
     
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
     
     @State var name: String = ""
     @State var description: String = ""
     
-    @Binding var trips: [Trip]
+    var trip: Trip?
     
     var body: some View {
         VStack {

@@ -6,26 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct Trips: View {
     
     @State var createList: Bool = false
-    @State var trips: [Trip] = []
+    @Query var trips: [Trip]
     
     var body: some View {
         VStack {
-            CreateTrip(trips: $trips)
+            CreateTrip()
             
         }
         .navigationTitle("Vai viajar?")
         .sheet(isPresented: $createList) { // $ binding<bool>: observable
-            CreateTrip(trips: $trips)
+            CreateTrip()
                 .presentationDragIndicator(.visible)
         }
         
     }
 }
 
-#Preview {
-    Trips()
-}
+//#Preview {
+//    Trips()
+//}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ItemCategory: String, CaseIterable, Identifiable {
+enum ItemCategory: String, CaseIterable, Identifiable, Codable {
     case electronics
     case hygiene
     case clothes

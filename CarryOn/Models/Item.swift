@@ -6,11 +6,20 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Item: Identifiable {
-    let id: UUID = UUID()
-    var name: String
-    var description: String?
-    var category: ItemCategory?
+@Model
+final class Item: Identifiable {
+        let id: UUID = UUID()
+        var name: String
+        var details: String?
+        var category: ItemCategory?
+    
+    init(name: String, details: String? = nil, category: ItemCategory? = nil) {
+        self.name = name
+        self.details = details
+        self.category = category
+    }
 }
+
 
