@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CreateTrip: View {
     
@@ -13,7 +14,9 @@ struct CreateTrip: View {
     @Environment(\.modelContext) var modelContext
     
     @State var name: String = ""
-    @State var description: String = ""
+    @State var details: String = ""
+    
+    @Query var trips: [Trip]
     
     var confirmCreation: Bool = false
     
@@ -34,7 +37,7 @@ struct CreateTrip: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Descrição")
                             .font(.system(.callout, weight: .semibold ))
-                        TextField("Opcional", text: $description)
+                        TextField("Opcional", text: $details)
                             .padding(.vertical, 12)
                             .padding(.horizontal)
                             .background(
@@ -49,7 +52,12 @@ struct CreateTrip: View {
                 }.padding(24)
             }
             ButtonComponent(text: "Criar lista") {
-                // create trip
+                if !name.isEmpty {
+                    let newTrip = Trip(name: name, details: details)
+                    modelContext.insert(newTrip)
+                    print(newTrip)
+                }
+                
                 // go to trip page
 //                confirmCreation = true
             }.padding(56)
