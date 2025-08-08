@@ -14,19 +14,34 @@ struct Trips: View {
     @Query var trips: [Trip]
     
     var body: some View {
-        VStack {
-            CreateTrip()
+        VStack(spacing: 48) {
+            VStack(spacing: 22) {
+                Text("Criar lista de viagem")
+                    .font(.system(.title3, weight: .semibold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                ButtonComponent(text: "Criar nova lista") {
+                    createList = true
+                }.padding(48)
+            }
             
+            Text("Minhas viagens")
+                .font(.system(.title3, weight: .semibold))
+                .frame(maxWidth: .infinity, alignment: .leading)            
         }
+        .padding(.top, 20)
+        .padding(.horizontal, 16)
         .navigationTitle("Vai viajar?")
         .sheet(isPresented: $createList) { // $ binding<bool>: observable
             CreateTrip()
-                .presentationDragIndicator(.visible)
+            .presentationDragIndicator(.visible)
+
         }
-        
     }
 }
 
-//#Preview {
-//    Trips()
-//}
+#Preview {
+//    NavigationStack{
+        Trips()
+
+//    }
+}
