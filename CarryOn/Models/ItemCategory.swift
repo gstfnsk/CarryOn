@@ -8,15 +8,14 @@
 import Foundation
 
 enum ItemCategory: String, CaseIterable, Identifiable, Codable {
-    case electronics
-    case hygiene
-    case clothes
-    case footwear
-    case documents
-    case accessories
-    case health
-    case bag
-    case miscellaneous
+    case electronics = "Eletrônicos"
+    case hygiene = "Higiene"
+    case clothes = "Roupas"
+    case footwear = "Calcados"
+    case documents = "Documentos"
+    case accessories = "Acessórios"
+    case health = "Saúde"
+    case miscellaneous = "Outros"
     
     var id: String { rawValue }
 }

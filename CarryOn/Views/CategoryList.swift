@@ -6,24 +6,45 @@
 //
 
 import SwiftUI
+import SwiftData
 
-var category : ItemCategory = .electronics
 
-//struct CategoryList: View {
-//    var body: some View {
-//        VStack {
-//            NavigationStack {
-//                ScrollView {
-//                    List(PredefinedItems.electronics) {item in
-//                        Text(item.name)
-//                    }
-//                }
-//            }
-//        }
-//        .navigationTitle(category.rawValue)
-//    }
-//}
+struct CategoryList: View {
+    
+    @Environment(\.modelContext) var modelContext
+    
+    var category : ItemCategory = .electronics
+    //predefinedItems: [ItemCategory: [Item]
+//    var items = Item.predefinedItems
+    @Query var items: [Item]
+    
+    var body: some View {
+        VStack {
+            NavigationStack {
+                ScrollView {
+                    ForEach(items) { item in
+                        Text(item.name)
+                    }
+                }
+            }
+        }
+        .navigationTitle(category.rawValue)
+        .onAppear {
+            if items.isEmpty {
+                for item in Item.predefinedItems {
+                    modelContext.insert(item)
+                }
+                do {
+                    try modelContext.save()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+}
 
-//#Preview {
-//    CategoryList()
-//}
+
+#Preview {
+    CategoryList()
+}
