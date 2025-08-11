@@ -12,6 +12,7 @@ struct Trips: View {
     
     @State var createList: Bool = false
     @Query var trips: [Trip]
+    @State var selectedTrip: Trip? = nil
     
     var body: some View {
         VStack(spacing: 48) {
@@ -29,6 +30,7 @@ struct Trips: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             ForEach(trips) { trip in
                 ButtonComponent(text: trip.name) {
+                    selectedTrip = trip
                 }
             }
         }
@@ -40,12 +42,15 @@ struct Trips: View {
                 CreateTrip()
             }.presentationDragIndicator(.visible)
         }
+        .navigationDestination(item: $selectedTrip) { trip in
+            TripScreen(trip: trip)
+        }
     }
 }
 
 #Preview {
     //    NavigationStack{
-    Trips()
+    //    Trips()
     
     //    }
 }

@@ -8,42 +8,46 @@
 import SwiftUI
 import SwiftData
 
-
 struct CategoryList: View {
     
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     
-    @State var insertItem : Bool = false
+//    @State var insertItem : Bool = false
+    @Binding var selectedItems: [Item]
+//    @Binding var itemsToRemove: [Item]
     
-    var category : ItemCategory = .electronics
-    @Query var items: [Item]
+    var category : ItemCategory
+    
+    @Query var allItems: [Item]
     
     var body: some View {
         VStack {
-            List(items) { item in
-                if item.category == category {
+            List(allItems) { item in
+                if (item.category.contains(category)) {
                     HStack {
                         Text(item.name)
-                        //                                .listRowInsets(EdgeInsets())
                             .listRowSeparator(.hidden, edges:.bottom)
                         Button {
-                            insertItem.toggle()
-                            print(item.name)
+//                            if let index = selectedItems.firstIndex(where: { $0.id == item.id})
+//                            {
+//                                selectedItems.remove(at: index)
+//                                itemsToRemove.append(item)
+//                            }
+                            selectedItems.append(item)
                         } label: {
-                            if insertItem {
+                            if selectedItems.contains(item) {
                                 Image(systemName: "checkmark")
                             }
                         }
                     }
-                    
                 }
-            } //.listStyle(.)
+            }
         }
         .navigationTitle(category.rawValue)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            if items.isEmpty {
+            if allItems.isEmpty {
                 for item in Item.predefinedItems {
                     modelContext.insert(item)
                 }
@@ -54,14 +58,14 @@ struct CategoryList: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
+        
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button {
+                Button{
                     dismiss()
                 } label: {
-                    Text("Voltar")
-                        .padding(.vertical, 14)
-                        .frame(maxWidth: .infinity)
+                    Label ("", systemImage: "chevron.left")
                 }
             }
         }
