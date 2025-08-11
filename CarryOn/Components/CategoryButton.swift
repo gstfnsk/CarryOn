@@ -11,11 +11,11 @@ struct CategoryButton: View {
     
     var text: String = ""
     var image = Image(systemName: "ellipsis")
-//    var action: () -> Void
+    var action: () -> Void
     
     var body: some View {
         Button {
-//            action()
+            action()
         } label: {
             VStack (){
                 image
@@ -32,6 +32,8 @@ struct CategoryButton: View {
 }
 
 #Preview {
-    CategoryButton(text: "test", image: Image(systemName: "ellipsis"))
+    CategoryButton(text: "test", image: Image(systemName: "ellipsis")) {
+            print(".")
+    }
 }
 
