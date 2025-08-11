@@ -26,22 +26,26 @@ struct Trips: View {
             
             Text("Minhas viagens")
                 .font(.system(.title3, weight: .semibold))
-                .frame(maxWidth: .infinity, alignment: .leading)            
+                .frame(maxWidth: .infinity, alignment: .leading)
+            ForEach(trips) { trip in
+                ButtonComponent(text: trip.name) {
+                }
+            }
         }
         .padding(.top, 20)
         .padding(.horizontal, 16)
         .navigationTitle("Vai viajar?")
-        .sheet(isPresented: $createList) { // $ binding<bool>: observable
-            CreateTrip()
-            .presentationDragIndicator(.visible)
-
+        .sheet(isPresented: $createList) {
+            NavigationView {
+                CreateTrip()
+            }.presentationDragIndicator(.visible)
         }
     }
 }
 
 #Preview {
-//    NavigationStack{
-        Trips()
-
-//    }
+    //    NavigationStack{
+    Trips()
+    
+    //    }
 }

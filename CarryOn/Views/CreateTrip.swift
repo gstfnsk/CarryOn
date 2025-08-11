@@ -44,24 +44,23 @@ struct CreateTrip: View {
                                 RoundedRectangle(cornerRadius: 8).foregroundStyle(.backgroundTertiary)
                             )
                     }
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Foto")
-                            .font(.system(.callout, weight: .semibold ))
-                    }
+//                    VStack(alignment: .leading, spacing: 8) {
+//                        Text("Foto")
+//                            .font(.system(.callout, weight: .semibold ))
+//                    }
                     
                 }.padding(24)
+                    .padding(.top, 51)
             }
             ButtonComponent(text: "Criar lista") {
                 if !name.isEmpty {
                     let newTrip = Trip(name: name, details: details)
                     modelContext.insert(newTrip)
-                    print(newTrip)
+                    dismiss()
                 }
-                
-                // go to trip page
-//                confirmCreation = true
             }.padding(56)
-        }
+        }.navigationTitle("Nova lista")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 
