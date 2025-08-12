@@ -9,7 +9,12 @@ import SwiftUI
 
 struct PersonalItemsEmpty: View {
     var body: some View {
-        Text("Lista vazia")
+        VStack(spacing: 8){
+            Image(.tripsEmptyState)
+                .resizable()
+                .frame(width: 121, height: 203)
+            
+        }
     }
 }
 
