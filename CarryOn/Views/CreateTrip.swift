@@ -24,31 +24,8 @@ struct CreateTrip: View {
         VStack {
             ScrollView {
                 VStack(spacing: 24) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Nome da lista")
-                            .font(.system(.callout, weight: .semibold ))
-                        TextField("Dê um nome a sua lista de viagem", text: $name)
-                            .padding(.vertical, 12)
-                            .padding(.horizontal)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8).foregroundStyle(.backgroundTertiary)
-                            )
-                    }
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Descrição")
-                            .font(.system(.callout, weight: .semibold ))
-                        TextField("Opcional", text: $details)
-                            .padding(.vertical, 12)
-                            .padding(.horizontal)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8).foregroundStyle(.backgroundTertiary)
-                            )
-                    }
-//                    VStack(alignment: .leading, spacing: 8) {
-//                        Text("Foto")
-//                            .font(.system(.callout, weight: .semibold ))
-//                    }
-                    
+                        LabelInput(label: "Nome da lista", placeholder: "Dê um nome a sua lista de viagem", input: $name)
+                    LabelInput(label: "Descrição", placeholder: "Opcional", input: $details)
                 }.padding(24)
                     .padding(.top, 51)
             }
