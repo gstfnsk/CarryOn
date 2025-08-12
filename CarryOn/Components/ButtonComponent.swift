@@ -19,7 +19,7 @@ struct ButtonComponent: View {
             Text(text)
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.vertical, 14)
-            .background(RoundedRectangle(cornerRadius: 48).foregroundStyle(.gray3))
+            .background(RoundedRectangle(cornerRadius: 16).foregroundStyle(.gray3))
             .padding(.horizontal, 8)
         }
     }
