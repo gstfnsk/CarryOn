@@ -20,9 +20,8 @@ struct TripCardComponent: View {
                 Text(text)
                     .padding(.leading, 16)
                     .padding(.top, 14)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
-        }.frame(width: 343, height: 103, alignment: .topLeading)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .background(RoundedRectangle(cornerRadius: 16).foregroundStyle(.gray3))
     }
 }

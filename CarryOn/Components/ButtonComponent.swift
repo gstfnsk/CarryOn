@@ -20,7 +20,6 @@ struct ButtonComponent: View {
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.vertical, 14)
             .background(RoundedRectangle(cornerRadius: 16).foregroundStyle(.gray3))
-            .padding(.horizontal, 8)
         }
     }
 }

@@ -62,7 +62,10 @@ struct AddItem: View {
                     }
                 }
             }
+            .background(Color.backgroundPrimary)
+                    .ignoresSafeArea()
         }
+        
     }
 }
 //#Preview {

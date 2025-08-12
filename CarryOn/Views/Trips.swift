@@ -19,35 +19,50 @@ struct Trips: View {
             Color.backgroundPrimary
                 .ignoresSafeArea()
             VStack(spacing: 48) {
-                VStack(spacing: 22) {
+                VStack(spacing: 24) {
                     Text("Criar lista de viagem")
                         .font(.system(.title3, weight: .semibold))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     ButtonComponent(text: "Criar nova lista") {
                         createList = true
                     }
-                    //                .padding(48)
                 }
-                
-                Text("Minhas viagens")
-                    .font(.system(.title3, weight: .semibold))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                if (!trips.isEmpty) {
-                    ForEach(trips) { trip in
-                        TripCardComponent(text: trip.name) {
-                            selectedTrip = trip
+                VStack(spacing: 24) {
+                    Text("Minhas viagens")
+                        .font(.system(.title3, weight: .semibold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    //                    .padding()
+                    
+                    if (!trips.isEmpty) {
+                        //                            ScrollView {
+                        //                                VStack {
+                        ForEach(trips) { trip in
+                            TripCardComponent(text: trip.name) {
+                                selectedTrip = trip
+                            }.frame(height: 103)
                         }
+                        Spacer()
                     }
-                    Spacer()
-                }
-                else {
-                    TripEmptyState()
+                    else {
+                        TripEmptyState()
+                    }
                 }
             }
-            .background(.backgroundPrimary)
+            .padding(.top, 250)
+            
+            .background(
+                Image("BackgroundTrips")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea(edges: .top)
+            )
             .padding(.top, 20)
             .padding(.horizontal, 16)
             .navigationTitle("Vai viajar?")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbarBackground(Color.clear, for: .navigationBar)
+            
             .sheet(isPresented: $createList) {
                 NavigationView {
                     CreateTrip()
