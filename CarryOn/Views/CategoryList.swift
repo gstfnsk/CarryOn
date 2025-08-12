@@ -43,6 +43,7 @@ struct CategoryList: View {
                 }
             }
         }
+        .background(Color.backgroundPrimary)
         .navigationTitle(category.rawValue)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
