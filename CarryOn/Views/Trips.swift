@@ -51,7 +51,7 @@ struct Trips: View {
                 .background(
                     Image(!trips.isEmpty
                                   ? (colorScheme == .dark ? "BackgroundTripsDark" : "BackgroundTrips")
-                                  : (colorScheme == .dark ? "BgTripsDark" : "BgTripsLight")
+                                  : (colorScheme == .dark ? "BgEmptyDark" : "BgEmptyLight")
                             )
                         .resizable()
                         .scaledToFill()
