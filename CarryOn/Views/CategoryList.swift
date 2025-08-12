@@ -13,9 +13,8 @@ struct CategoryList: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     
-//    @State var insertItem : Bool = false
     @Binding var selectedItems: [Item]
-//    @Binding var itemsToRemove: [Item]
+    @Binding var itemsToRemove: [Item]
     
     var category : ItemCategory
     
@@ -29,14 +28,14 @@ struct CategoryList: View {
                         Text(item.name)
                             .listRowSeparator(.hidden, edges:.bottom)
                         Button {
-//                            if let index = selectedItems.firstIndex(where: { $0.id == item.id})
-//                            {
-//                                selectedItems.remove(at: index)
-//                                itemsToRemove.append(item)
-//                            }
-                            selectedItems.append(item)
+                            if let index = selectedItems.firstIndex(where: { $0.id == item.id }) {
+                                selectedItems.remove(at: index)
+                                itemsToRemove.append(item)
+                            } else {
+                                selectedItems.append(item)
+                            }
                         } label: {
-                            if selectedItems.contains(item) {
+                            if selectedItems.contains(where: { $0.id == item.id }) {
                                 Image(systemName: "checkmark")
                             }
                         }

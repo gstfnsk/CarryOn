@@ -14,8 +14,10 @@ struct PersonalItems: View {
     @State var addItem: Bool = true
     @State var emptyState: Bool = true
     @State var selectedCategory: ItemCategory?
+    
+    
     @State var selectedItems: [Item] = []
-//    @State var itemsToRemove: [Item] = []
+    @State var itemsToRemove: [Item] = []
     
     @Query var pickedItems: [PickedItems]
     
@@ -56,8 +58,15 @@ struct PersonalItems: View {
                 .presentationDetents([.medium])
         }
         .navigationDestination(item: $selectedCategory) { category in
-            CategoryList(selectedItems: $selectedItems, category: category)
+            
+            let existingItems = pickedItems.first?.items ?? []
+            
+            CategoryList(selectedItems: $selectedItems, itemsToRemove: $itemsToRemove, category: category)
+                .onAppear() {
+                    selectedItems = existingItems
+                }
                 .onDisappear {
+                    
                     addItem = true
                     
                     let picked: PickedItems
@@ -69,11 +78,15 @@ struct PersonalItems: View {
                         let combinedItems = currentItems.union(newItems)
                         
                         picked.items = Array(combinedItems)
+                        picked.items.removeAll { item in
+                            itemsToRemove.contains(where: { $0.id == item.id })
+                        }
                     } else {
                         picked = PickedItems(items: selectedItems)
                         modelContext.insert(picked)
                     }
                     try? modelContext.save()
+                    itemsToRemove.removeAll()
                 }
         }
     }
