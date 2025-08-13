@@ -46,6 +46,15 @@ struct PersonalItems: View {
                                 }
                         }.background(Color.backgroundPrimary)
                             .scrollContentBackground(.hidden)
+                        Button {
+                            addItem = true
+                        } label: {
+                            Image(systemName: "plus")  // símbolo do botão
+                                .foregroundColor(.white)
+                                .frame(width: 36, height: 36)
+                                .background(Color.accentColor)
+                                .clipShape(Circle())
+                        }
                         
                     } else {
                         VStack(spacing: 64){
