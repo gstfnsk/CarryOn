@@ -11,10 +11,8 @@ import SwiftData
 struct PersonalItems: View {
     
     
-    @State var addItem: Bool = true
-    @State var emptyState: Bool = true
+    @State var addItem: Bool = false
     @State var selectedCategory: ItemCategory?
-    
     
     @State var selectedItems: [Item] = []
     @State var itemsToRemove: [Item] = []
@@ -35,7 +33,8 @@ struct PersonalItems: View {
                         .padding(.horizontal, 16)
                         .padding(.top, 20)
                     
-                    if let firstPicked = pickedItems.first { // se pickedItems já contém itens
+                    if let firstPicked = pickedItems.first, !firstPicked.items.isEmpty {
+                        
                         List(firstPicked.items) { item in
                             Text(item.name) // lista os itens
                                 .swipeActions(edge: .trailing) {
@@ -49,7 +48,12 @@ struct PersonalItems: View {
                         }
                         
                     } else {
-                        PersonalItemsEmpty()
+                        VStack(spacing: 64){
+                            PersonalItemsEmpty()
+                            ButtonComponent(text: "Adicionar itens") {
+                                addItem = true
+                            }.padding(.horizontal)
+                        }
                     }
                     Spacer()
                 }
@@ -72,9 +76,9 @@ struct PersonalItems: View {
                 addItem = true
             }
             .sheet(isPresented: $addItem) { // $ binding<bool>: observable
-                AddItem(selectedCategory: $selectedCategory)
+                AddItem(showTripType: false, selectedCategory: $selectedCategory)
                     .presentationDragIndicator(.visible)
-                    .presentationDetents([.medium])
+                    .presentationDetents([.height(210)])
             }
             .navigationDestination(item: $selectedCategory) { category in
                 

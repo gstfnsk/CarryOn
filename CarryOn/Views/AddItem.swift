@@ -12,6 +12,7 @@ struct AddItem: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
+    var showTripType: Bool
     
     @State var item: String = ""
     @Binding var selectedCategory: ItemCategory?
@@ -44,20 +45,22 @@ struct AddItem: View {
                                     }
                                 }
                             }
-                        }
+                        }.padding(.horizontal, 16)
                     }
-                    Text("Adicionar por tipo de viagem")
-                        .font(.system(.callout, weight: .semibold ))
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach (ItemCategory.allCases) { category in
-                                if category.row == "second"{
-                                    CategoryButton(text: category.rawValue, image: Image(systemName: category.imageName)){
-                                        selectedCategory = category
-                                        dismiss()
+                    if (showTripType) {
+                        Text("Adicionar por tipo de viagem")
+                            .font(.system(.callout, weight: .semibold ))
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach (ItemCategory.allCases) { category in
+                                    if category.row == "second"{
+                                        CategoryButton(text: category.rawValue, image: Image(systemName: category.imageName)){
+                                            selectedCategory = category
+                                            dismiss()
+                                        }
                                     }
                                 }
-                            }
+                            }.padding(.horizontal, 16)
                         }
                     }
                 }
@@ -65,7 +68,6 @@ struct AddItem: View {
             .background(Color.backgroundPrimary)
                     .ignoresSafeArea()
         }
-        
     }
 }
 //#Preview {

@@ -11,7 +11,7 @@ import SwiftData
 struct TripScreen: View {
     
     @State var showDialog = false
-    @State var addItem: Bool = true
+    @State var addItem: Bool = false
     @State var selectedCategory: ItemCategory?
     
     @State var selectedItems: [Item] = []
@@ -31,8 +31,12 @@ struct TripScreen: View {
                     ButtonComponent(text: "Importar lista") {
                         showDialog = true
                     }
+                    ButtonComponent(text: "Adicionar itens") {
+                        showDialog = false
+                        addItem = true
+                    }
+                    Spacer()
                 }
-                
             }
             .padding()
             .confirmationDialog(
@@ -69,9 +73,9 @@ struct TripScreen: View {
         .onAppear {
         }
         .sheet(isPresented: $addItem) { // $ binding<bool>: observable
-            AddItem(selectedCategory: $selectedCategory)
+            AddItem(showTripType: true, selectedCategory: $selectedCategory)
                 .presentationDragIndicator(.visible)
-                .presentationDetents([.medium])
+                .presentationDetents([.height(342)])
         }
 //        .navigationDestination(item: $selectedCategory) { category in
 //            CategoryList(category: category)
