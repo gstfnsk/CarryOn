@@ -23,12 +23,24 @@ struct AddItem: View {
                 VStack(spacing: 8){
                     Text("Adicionar item")
                         .font(.system(.callout, weight: .semibold ))
-                    TextField("Insira o item", text: $item)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8).foregroundStyle(.backgroundTertiary)
-                        )
+                    HStack {
+                        TextField("Insira o item", text: $item)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8).foregroundStyle(.backgroundTertiary)
+                            )
+                        Button {
+                            addNewItem()
+                        } label: {
+                            Image(systemName: "plus")  // símbolo do botão
+                                .foregroundColor(.white)
+                                .frame(width: 36, height: 36)
+                                .background(Color.accentColor)
+                                .clipShape(Circle())
+                        }
+                    }
+                    
                 }
                 .padding()
                 VStack(spacing: 12) {
@@ -66,10 +78,27 @@ struct AddItem: View {
                 }
             }
             .background(Color.backgroundPrimary)
-                    .ignoresSafeArea()
+            .ignoresSafeArea()
+        }
+    }
+    
+    func addNewItem() {
+        let newItem = Item(name: item)
+        modelContext.insert(newItem)
+        
+//        if let trip {
+//            trip.items.append(newItem)
+//        }
+        
+        do {
+            try modelContext.save()
+            item = ""
+        } catch {
+            print("Erro ao salvar item: \(error)")
         }
     }
 }
+
 //#Preview {
 //    AddItem()
 //}
