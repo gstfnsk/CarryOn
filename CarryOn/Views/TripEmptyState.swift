@@ -12,11 +12,10 @@ struct TripEmptyState: View {
         VStack {
             VStack(spacing: 40){
                 Text("Sua lista ainda está vazia")
-                Image(.myTripsEmptyState)
+                Image(.tripEmptyState)
                     .resizable()
-                    .frame(width: 121, height: 203)
-                Text("Crie listas de viagens e elas aparecerão aqui")
-                
+                    .frame(width: 135, height: 125)
+                Text("Importe uma lista ou adicione itens")
             }
         }
     }
