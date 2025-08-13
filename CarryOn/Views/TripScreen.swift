@@ -95,7 +95,7 @@ struct TripScreen: View {
                     Button {
                         addItem = true
                     } label: {
-                        Text("Adicionar itens")
+                        Image(systemName: "plus")
                     }
                 }
             }
