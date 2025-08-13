@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TripEmptyState: View {
+struct TripsEmptyState: View {
     var body: some View {
         VStack {
             VStack(spacing: 40){
@@ -23,5 +23,5 @@ struct TripEmptyState: View {
 }
 
 #Preview {
-    TripEmptyState()
+    TripsEmptyState()
 }

@@ -44,7 +44,7 @@ struct Trips: View {
                         }
                     }
                     else {
-                        TripEmptyState()
+                        TripsEmptyState()
                     }
                 }
             }
