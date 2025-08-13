@@ -10,7 +10,6 @@ import SwiftData
 
 struct PersonalItems: View {
     
-    
     @State var addItem: Bool = false
     @State var selectedCategory: ItemCategory?
     
@@ -77,7 +76,12 @@ struct PersonalItems: View {
                 addItem = true
             }
             .sheet(isPresented: $addItem) { // $ binding<bool>: observable
-                AddItem(showTripType: false, selectedCategory: $selectedCategory)
+                AddItem(showTripType: false, selectedCategory: $selectedCategory) { newItem in
+                    if let firstPicked = pickedItems.first {
+                        firstPicked.items.append(newItem)
+                        try? modelContext.save()
+                    }
+                }
                     .presentationDragIndicator(.visible)
                     .presentationDetents([.height(210)])
             }

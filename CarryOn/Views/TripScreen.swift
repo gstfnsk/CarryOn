@@ -21,6 +21,7 @@ struct TripScreen: View {
     
     @Environment(\.modelContext) var modelContext
     
+    @State var tripAddItem: Trip?
     var trip: Trip
     
     var body: some View {
@@ -92,10 +93,14 @@ struct TripScreen: View {
         .onAppear {
         }
         .sheet(isPresented: $addItem) { // $ binding<bool>: observable
-            AddItem(showTripType: true, selectedCategory: $selectedCategory)
+            AddItem(showTripType: true, selectedCategory: $selectedCategory) { newItem in
+                trip.items.append(newItem)
+                try? modelContext.save()
+            }
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.height(342)])
         }
+        
         //        .navigationDestination(item: $selectedCategory) { category in
         //            CategoryList(category: category)
         //                .onDisappear {

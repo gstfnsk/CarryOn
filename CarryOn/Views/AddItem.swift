@@ -17,6 +17,8 @@ struct AddItem: View {
     @State var item: String = ""
     @Binding var selectedCategory: ItemCategory?
     
+    var onAddItem: ((Item) -> Void)? = nil
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -40,7 +42,6 @@ struct AddItem: View {
                                 .clipShape(Circle())
                         }
                     }
-                    
                 }
                 .padding()
                 VStack(spacing: 12) {
@@ -86,11 +87,8 @@ struct AddItem: View {
         let newItem = Item(name: item)
         modelContext.insert(newItem)
         
-//        if let trip {
-//            trip.items.append(newItem)
-//        }
-        
         do {
+            onAddItem?(newItem)
             try modelContext.save()
             item = ""
         } catch {
