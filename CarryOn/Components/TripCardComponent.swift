@@ -13,16 +13,15 @@ struct TripCardComponent: View {
     var action: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading) {
             Button {
                 action()
             } label: {
                 Text(text)
                     .padding(.leading, 16)
                     .padding(.top, 14)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .background(RoundedRectangle(cornerRadius: 16).foregroundStyle(.gray3))
             }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .background(RoundedRectangle(cornerRadius: 16).foregroundStyle(.gray3))
     }
 }
 
