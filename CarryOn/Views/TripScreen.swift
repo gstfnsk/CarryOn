@@ -29,7 +29,7 @@ struct TripScreen: View {
             VStack(spacing: 22) {
                 Text(trip.name)
                     .font(.system(.title3, weight: .semibold))
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 // ver se trip.items é vazio ou n:
                 if trip.items.isEmpty{
                     TripEmptyState()
@@ -54,6 +54,7 @@ struct TripScreen: View {
                             }
                     }.background(Color.backgroundPrimary)
                         .scrollContentBackground(.hidden)
+                    Spacer()
                 }
             }
             .padding()
@@ -101,11 +102,32 @@ struct TripScreen: View {
                 .presentationDetents([.height(342)])
         }
         
-        //        .navigationDestination(item: $selectedCategory) { category in
-        //            CategoryList(category: category)
-        //                .onDisappear {
-        //                    addItem = true
-        //                }
-        //        }
+                .navigationDestination(item: $selectedCategory) { category in
+                    
+                    let existingItems = trip.items
+                    
+                    CategoryList(selectedItems: $selectedItems, itemsToRemove: $itemsToRemove, category: category)
+                        .onAppear(){
+                            selectedItems = existingItems
+                        }
+                        .onDisappear {
+                            addItem = true
+                    
+                                       let currentItems = Set(trip.items)
+                                       let newItems = Set(selectedItems)
+                                       let combinedItems = currentItems.union(newItems)
+
+                                       trip.items = Array(combinedItems)
+
+                                       trip.items.removeAll { item in
+                                           itemsToRemove.contains(where: { $0.id == item.id })
+                                       }
+
+                                       try? modelContext.save()
+
+                                       itemsToRemove.removeAll()
+                        }
+                }
+        
     }
 }

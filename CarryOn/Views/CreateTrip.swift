@@ -38,6 +38,7 @@ struct CreateTrip: View {
             }.padding(56)
         }.navigationTitle("Nova lista")
             .navigationBarTitleDisplayMode(.inline)
+            .background(Color.backgroundPrimary)
     }
 }
 
