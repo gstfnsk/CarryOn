@@ -17,7 +17,7 @@ struct PersonalItemsEmpty: View {
                     .frame(width: 286, height: 153)
                 Text("Adicione itens e eles aparecerão aqui")
             }
-        }
+        }.padding(.top, 42)
     }
 }
 

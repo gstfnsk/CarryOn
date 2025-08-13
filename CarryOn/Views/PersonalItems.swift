@@ -45,7 +45,8 @@ struct PersonalItems: View {
                                         }
                                     }
                                 }
-                        }
+                        }.background(Color.backgroundPrimary)
+                            .scrollContentBackground(.hidden)
                         
                     } else {
                         VStack(spacing: 64){

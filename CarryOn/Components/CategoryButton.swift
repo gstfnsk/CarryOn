@@ -21,6 +21,7 @@ struct CategoryButton: View {
                 image
                     .frame(maxHeight: 41)
                 Text(text)
+                    .font(.system(.caption2, weight: .regular ))
             }.frame(width: 80, height: 80, alignment: .center)
 //                .padding(.horizontal, 8)
                 .background(

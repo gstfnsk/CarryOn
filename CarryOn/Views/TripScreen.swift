@@ -14,10 +14,14 @@ struct TripScreen: View {
     @State var addItem: Bool = false
     @State var selectedCategory: ItemCategory?
     
+    @Query var pickedItems: [PickedItems]
+    
     @State var selectedItems: [Item] = []
     @State var itemsToRemove: [Item] = []
     
-   var trip: Trip
+    @Environment(\.modelContext) var modelContext
+    
+    var trip: Trip
     
     var body: some View {
         VStack {
@@ -36,29 +40,44 @@ struct TripScreen: View {
                         addItem = true
                     }
                     Spacer()
+                } else {
+                    List(trip.items) { item in
+                        Text(item.name) // lista os itens
+                            .swipeActions(edge: .trailing) {
+                                Button("Delete", systemImage: "trash", role: .destructive) {
+                                    if let index = trip.items.firstIndex(where: { $0.id == item.id }) {
+                                        trip.items.remove(at: index)
+                                        try? modelContext.save()
+                                    }
+                                }
+                            }
+                    }.background(Color.backgroundPrimary)
+                        .scrollContentBackground(.hidden)
                 }
             }
             .padding()
             .confirmationDialog(
-                        "Importar lista",
-                        isPresented: $showDialog,
-                        titleVisibility: .visible
-                    ) {
-                        Button("Importar dos itens essenciais") {
-                            print("Opção 1 escolhida")
-                        }
-                        
-                        Button("Importar de outra viagem") {
-                            print("Opção 2 escolhida")
-                        }
-                        
-                        Button("Cancelar", role: .cancel) {
-                            print("Cancelar")
-                        }
-                    } message: {
-                        Text("Escolha de onde importar sua lista")
+                "Importar lista",
+                isPresented: $showDialog,
+                titleVisibility: .visible
+            ) {
+                Button("Importar dos itens essenciais") {
+                    if let firstPicked = pickedItems.first {
+                        trip.items = firstPicked.items
                     }
+                }
+                //                        Button("Importar de outra viagem") {
+                //                            //mostrar lista de viagens
+                //                        }
+                Button("Cancelar", role: .cancel) {
+                    print("Cancelar")
+                }
+            } message: {
+                Text("Escolha de onde importar sua lista")
+            }
             .navigationTitle("Lista de viagem")
+            .toolbarBackground(Color.backgroundPrimary, for: .navigationBar)
+            .toolbarBackground(.visible, for: .tabBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -69,7 +88,7 @@ struct TripScreen: View {
                     }
                 }
             }
-        }
+        }.background(Color.backgroundPrimary)
         .onAppear {
         }
         .sheet(isPresented: $addItem) { // $ binding<bool>: observable
@@ -77,11 +96,11 @@ struct TripScreen: View {
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.height(342)])
         }
-//        .navigationDestination(item: $selectedCategory) { category in
-//            CategoryList(category: category)
-//                .onDisappear {
-//                    addItem = true
-//                }
-//        }
+        //        .navigationDestination(item: $selectedCategory) { category in
+        //            CategoryList(category: category)
+        //                .onDisappear {
+        //                    addItem = true
+        //                }
+        //        }
     }
 }
